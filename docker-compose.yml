@@ -27,6 +27,8 @@ services:
 
   nginx:
     build: ./nginx
+    container_name: nginx
+    restart: always
     ports:
       - 8081:8081
     depends_on:
@@ -35,7 +37,38 @@ services:
       - web3
     volumes:
       - web_data:/Users/tomashoffer/Documents/Coding-Projects/bvit
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+        reservations:
+          cpus: '2'
 
+  locust-master:
+    image: locustio/locust
+    ports:
+      - "8089:8089"
+    volumes:
+      - ./:/mnt/locust
+    command: -f /mnt/locust/locustfile.py --master --config=/mnt/locust/locust.conf
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+        reservations:
+          cpus: '1'
+
+  locust-worker:
+      image: locustio/locust
+      volumes:
+        - ./:/mnt/locust
+      command: -f /mnt/locust/locustfile.py --worker --master-host locust-master
+      deploy:
+        resources:
+          limits:
+            cpus: '1'
+          reservations:
+            cpus: '1'
 
 volumes:
   web_data:
