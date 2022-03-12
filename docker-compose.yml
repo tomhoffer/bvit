@@ -25,6 +25,16 @@ services:
     volumes:
       - web_data:/Users/tomashoffer/Documents/Coding-Projects/bvit
 
+  nginx:
+    build: ./nginx
+    ports:
+      - 8081:8081
+    depends_on:
+      - web1
+      - web2
+      - web3
+    volumes:
+      - web_data:/Users/tomashoffer/Documents/Coding-Projects/bvit
 
 
 volumes:
