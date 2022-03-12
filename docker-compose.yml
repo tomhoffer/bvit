@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  web1:
+    build: .
+    command: gunicorn --bind 0.0.0.0:5000 app:app
+    expose:
+      - 5000
+    volumes:
+      - web_data:/Users/tomashoffer/Documents/Coding-Projects/bvit
+
+  web2:
+    build: .
+    command: gunicorn --bind 0.0.0.0:5000 app:app
+    expose:
+      - 5000
+    volumes:
+      - web_data:/Users/tomashoffer/Documents/Coding-Projects/bvit
+
+  web3:
+    build: .
+    command: gunicorn --bind 0.0.0.0:5000 app:app
+    expose:
+      - 5000
+    volumes:
+      - web_data:/Users/tomashoffer/Documents/Coding-Projects/bvit
+
+
+
+volumes:
+  web_data:
