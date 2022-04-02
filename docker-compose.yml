@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.9'
 
 services:
   web1:
@@ -8,6 +8,7 @@ services:
       - 5000
     volumes:
       - web_data:/Users/tomashoffer/Documents/Coding-Projects/bvit
+    cpu_count: 1
 
   web2:
     build: .
@@ -16,6 +17,7 @@ services:
       - 5000
     volumes:
       - web_data:/Users/tomashoffer/Documents/Coding-Projects/bvit
+    cpu_count: 1
 
   web3:
     build: .
@@ -24,6 +26,8 @@ services:
       - 5000
     volumes:
       - web_data:/Users/tomashoffer/Documents/Coding-Projects/bvit
+    cpu_count: 1
+
 
   nginx:
     build: ./nginx
@@ -37,12 +41,7 @@ services:
       - web3
     volumes:
       - web_data:/Users/tomashoffer/Documents/Coding-Projects/bvit
-    deploy:
-      resources:
-        limits:
-          cpus: '2'
-        reservations:
-          cpus: '2'
+    cpu_count: 4
 
   locust-master:
     image: locustio/locust
@@ -51,24 +50,14 @@ services:
     volumes:
       - ./:/mnt/locust
     command: -f /mnt/locust/locustfile.py --master --config=/mnt/locust/locust.conf
-    deploy:
-      resources:
-        limits:
-          cpus: '1'
-        reservations:
-          cpus: '1'
+    cpu_count: 1
 
   locust-worker:
-      image: locustio/locust
-      volumes:
-        - ./:/mnt/locust
-      command: -f /mnt/locust/locustfile.py --worker --master-host locust-master
-      deploy:
-        resources:
-          limits:
-            cpus: '1'
-          reservations:
-            cpus: '1'
+    image: locustio/locust
+    volumes:
+      - ./:/mnt/locust
+    command: -f /mnt/locust/locustfile.py --worker --master-host locust-master
+    cpu_count: 1
 
 volumes:
   web_data:
