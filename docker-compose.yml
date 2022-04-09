@@ -2,8 +2,8 @@ version: '3.9'
 
 services:
   web1:
-    build: .
-    command: gunicorn --bind 0.0.0.0:5000 app:app
+    build: ./app
+    command: gunicorn --bind 0.0.0.0:5000 app-slow:app
     expose:
       - 5000
     volumes:
@@ -11,7 +11,7 @@ services:
     cpu_count: 1
 
   web2:
-    build: .
+    build: ./app
     command: gunicorn --bind 0.0.0.0:5000 app:app
     expose:
       - 5000
@@ -20,7 +20,7 @@ services:
     cpu_count: 1
 
   web3:
-    build: .
+    build: ./app
     command: gunicorn --bind 0.0.0.0:5000 app:app
     expose:
       - 5000
@@ -41,7 +41,7 @@ services:
       - web3
     volumes:
       - web_data:/Users/tomashoffer/Documents/Coding-Projects/bvit
-    cpu_count: 4
+    cpu_count: 2
 
   locust-master:
     image: locustio/locust
