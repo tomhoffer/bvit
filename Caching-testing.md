@@ -1,0 +1,1 @@
+Zapnuta cache vs vypnuta cache pri 1 node
