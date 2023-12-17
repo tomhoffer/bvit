@@ -1,3 +1,6 @@
+# NGINX DDoS mitigation
+This project hosts code to demonstrate how Nginx can be used to mitigate the impact of Dos/DDoS attacks using load balancing, rate-limiting and caching techniques. See `paper.pdf` with the detailed explaination of this problematic, as well as experiments and evaluation results (SK language). 
+
 # Create the environment
 
 The following docker-compose command creates containers with the following:
